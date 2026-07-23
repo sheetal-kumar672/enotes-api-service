@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springboot.dto.CategoryDto;
 import org.springboot.dto.CategoryResponse;
 import org.springboot.entity.Category;
+import org.springboot.exception.ResourceNotFoundException;
 import org.springboot.repository.CategoryRepository;
 import org.springboot.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,13 +88,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDto getCategoryById(Integer id) {
+	public CategoryDto getCategoryById(Integer id)  throws Exception{
 		
-		Optional<Category> findByCategory =  categoryRepo.findByIdAndIsDeletedFalse(id);
+		Category category =  categoryRepo.findByIdAndIsDeletedFalse(id).orElseThrow(()-> new ResourceNotFoundException("Category not found with id=" + id));
 		
-		if(findByCategory.isPresent())
+		if(!ObjectUtils.isEmpty(category))
 		{
-			Category category = findByCategory.get();
 			return mapper.map(category, CategoryDto.class);
 		}
 		

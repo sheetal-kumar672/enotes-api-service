@@ -45,6 +45,9 @@ public class categorycontroller {
 	@GetMapping("/")
 	public ResponseEntity<?> getAllCategory()
 	{
+//		String nm=null;
+//		nm.toUpperCase();
+//		
 		List<CategoryDto> allCategory = categoryService.getAllCategory();
 		
 		if(CollectionUtils.isEmpty(allCategory))
@@ -77,12 +80,12 @@ public class categorycontroller {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id )
+	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id ) throws Exception
 	{
 		CategoryDto categoryDto = categoryService.getCategoryById(id);
 		if(ObjectUtils.isEmpty(categoryDto))
 		{
-			return new ResponseEntity<>("category not found with Id`=" + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Internal Server error", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(categoryDto,HttpStatus.OK);
 	}

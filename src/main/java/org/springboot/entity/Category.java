@@ -2,7 +2,10 @@ package org.springboot.entity;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 
 public class Category extends BaseModel {
 	
@@ -27,6 +31,10 @@ public class Category extends BaseModel {
 	private String name;
 	
 	private String description;
+	
+    private Boolean isActive;
+	
+	private Boolean isDeleted;
 	
 	public Integer getId() {
 		return id;
@@ -52,7 +60,21 @@ public class Category extends BaseModel {
 		this.description = description;
 	}
 
-	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 	
 
 }

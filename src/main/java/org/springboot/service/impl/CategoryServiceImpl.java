@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springboot.dto.CategoryDto;
 import org.springboot.dto.CategoryResponse;
 import org.springboot.entity.Category;
+import org.springboot.exception.ExistDataException;
 import org.springboot.exception.ResourceNotFoundException;
 import org.springboot.repository.CategoryRepository;
 import org.springboot.service.CategoryService;
@@ -33,6 +34,14 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		// Validation Checking
          validation.categoryValidation(categoryDto);
+         
+         // check category exist or not 
+         Boolean exist=categoryRepo.existsByName(categoryDto.getName().trim());
+         if(exist)
+         {
+        	 // throw error
+        	 throw new ExistDataException("Category already exist");
+         }
 		
 		
 		Category category = mapper.map(categoryDto, Category.class);

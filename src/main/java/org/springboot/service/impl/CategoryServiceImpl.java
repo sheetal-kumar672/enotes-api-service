@@ -11,6 +11,7 @@ import org.springboot.entity.Category;
 import org.springboot.exception.ResourceNotFoundException;
 import org.springboot.repository.CategoryRepository;
 import org.springboot.service.CategoryService;
+import org.springboot.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -24,13 +25,15 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private ModelMapper mapper;
 	
+	@Autowired
+	private Validation validation;
+	
 	@Override
 	public Boolean saveCategory(CategoryDto categoryDto) {
 		
-//		Category category = new Category();
-//		category.setName(categoryDto.getName());
-//		category.setDescription(categoryDto.getDescription());
-//		category.setIsActive(categoryDto.getIsActive());
+		// Validation Checking
+         validation.categoryValidation(categoryDto);
+		
 		
 		Category category = mapper.map(categoryDto, Category.class);
 		

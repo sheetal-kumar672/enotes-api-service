@@ -16,13 +16,23 @@ import lombok.Setter;
 
 public class NotesDto {
 	
-private Integer id;
+    private Integer id;
 	
 	private String title;
 	
 	private String description;
 	
 	private Category category;
+	
+    private Integer createdBy;
+	
+	private Date createdOn;
+	
+	private Integer updatedBy;
+	
+	private Date updatedOn;
+	
+	private FileDto fileDetails;
 	
     public Integer getId() {
 		return id;
@@ -87,13 +97,75 @@ private Integer id;
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
+	
+	public FileDto getFileDetails() {
+		return fileDetails;
+	}
 
-	private Integer createdBy;
-	
-	private Date createdOn;
-	
-	private Integer updatedBy;
-	
-	private Date updatedOn;
+	public void setFileDetails(FileDto fileDetails) {
+		this.fileDetails = fileDetails;
+	}
 
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+
+	public static class FileDto {
+		
+	    private Integer id;
+		
+		private String originalFileName;
+		
+		private String displayFileName;
+
+		public Integer getId() {
+			return id;
+		}
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+
+		public String getOriginalFileName() {
+			return originalFileName;
+		}
+
+		public void setOriginalFileName(String originalFileName) {
+			this.originalFileName = originalFileName;
+		}
+
+		public String getDisplayFileName() {
+			return displayFileName;
+		}
+
+		public void setDisplayFileName(String displayFileName) {
+			this.displayFileName = displayFileName;
+		}
+
+	}
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+
+	public static class CategoryDto {
+		
+	    private Integer id;
+	    public Integer getId() {
+			return id;
+		}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		private String name;
+
+}
 }

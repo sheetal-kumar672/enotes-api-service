@@ -21,6 +21,21 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 public class Notes extends BaseModel {
 	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	private String title;
+	
+	private String description;
+	
+	@ManyToOne
+	private Category category;
+	
+	@ManyToOne
+	private FileDetails fileDetails;
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,15 +68,12 @@ public class Notes extends BaseModel {
 		this.category = category;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	private String title;
-	
-	private String description;
-	
-	@ManyToOne
-	private Category category;
+	public FileDetails getFileDetails() {
+		return fileDetails;
+	}
+
+	public void setFileDetails(FileDetails fileDetails) {
+		this.fileDetails = fileDetails;
+	}
 
 }

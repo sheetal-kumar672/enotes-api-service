@@ -1,5 +1,7 @@
 package org.springboot.exception;
 
+import java.io.FileNotFoundException;
+
 import org.slf4j.Logger;
 import org.springboot.util.CommonUtil;
 import org.springframework.http.HttpStatus;
@@ -49,6 +51,14 @@ public class GlobalExceptionHandler {
 //		return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
 		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.CONFLICT);
 	}
+	
+	@ExceptionHandler(FileNotFoundException.class)
+	public ResponseEntity<?> handleFileNotFoundException(FileNotFoundException e)
+	{
+//		return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.NOT_FOUND);
+	}
+	
 	
 	
 }

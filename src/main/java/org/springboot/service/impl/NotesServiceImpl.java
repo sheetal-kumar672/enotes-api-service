@@ -13,6 +13,7 @@ import java.util.UUID;
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.springboot.dto.NotesDto;
+import org.springboot.dto.NotesResponse;
 import org.springboot.entity.Category;
 import org.springboot.entity.FileDetails;
 import org.springboot.entity.Notes;
@@ -23,6 +24,9 @@ import org.springboot.repository.NotesRepository;
 import org.springboot.service.NotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
@@ -168,6 +172,28 @@ public class NotesServiceImpl implements NotesService{
 		FileDetails fileDetails  =fileRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("File is not avilable"));
 		
 		return fileDetails;
+	}
+
+	@Override
+	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize) {
+		
+		Pageable pageable= PageRequest.of(pageNo, pageSize);
+		
+		Page<Notes> pageNotes= notesRepo.findByCreatedBy(userId, pageable);
+		
+	    List<NotesDto>	notesDto = pageNotes.get().map(n ->mapper.map(n, NotesDto.class)).toList();
+		
+		NotesResponse notes = NotesResponse.builder()
+				.notes(notesDto)
+				.pageNo(pageNotes.getNumber())
+				.pageSize(pageNotes.getSize())
+				.totalElements(pageNotes.getTotalElements())
+				.totalPages(pageNotes.getTotalPages())
+				.isFirst(pageNotes.isFirst())
+				.isLast(pageNotes.isLast())
+		         .build();
+		
+		return notes;
 	}
 
 }

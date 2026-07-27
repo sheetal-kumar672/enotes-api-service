@@ -12,6 +12,13 @@ import lombok.Setter;
 
 public class CategoryResponse {
 	
+
+	private Integer id;
+	
+	private String name;
+	
+	private String description;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -36,10 +43,5 @@ public class CategoryResponse {
 		this.description = description;
 	}
 
-	private Integer id;
-	
-	private String name;
-	
-	private String description;
 
 }

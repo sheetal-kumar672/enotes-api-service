@@ -18,6 +18,22 @@ public class CategoryDto {
 	
 	private String name;
 	
+
+	private String description;
+	
+    private Boolean isActive;
+    
+    
+	
+	private Integer createdBy;
+	
+	private Date createdOn;
+	
+	private Integer updatedBy;
+	
+	private Date updatedOn;
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -82,20 +98,6 @@ public class CategoryDto {
 		this.updatedOn = updatedOn;
 	}
 
-	private String description;
-	
-    private Boolean isActive;
-    
-    
-	
-	private Integer createdBy;
-	
-	private Date createdOn;
-	
-	private Integer updatedBy;
-	
-	private Date updatedOn;
-	
 	
 
 }

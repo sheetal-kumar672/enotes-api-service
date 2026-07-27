@@ -3,6 +3,7 @@ package org.springboot.controller;
 import java.util.List;
 
 import org.springboot.dto.NotesDto;
+import org.springboot.dto.NotesResponse;
 import org.springboot.entity.FileDetails;
 import org.springboot.service.NotesService;
 import org.springboot.util.CommonUtil;
@@ -55,13 +56,27 @@ public class NotesController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<?> saveNotes()
+	public ResponseEntity<?> getAllNotes()
 	{
 		List<NotesDto> notes = notesService.getAllNotes();
 		if(CollectionUtils.isEmpty(notes))
 		{
 			return ResponseEntity.noContent().build();
 		}
+		return CommonUtil.createBuildResponse(notes, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user-notes")
+	public ResponseEntity<?> getAllNotesByUser(
+			@RequestParam(name = "pageNo",defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize)
+	{
+		Integer UserId=1;
+		NotesResponse notes = notesService.getAllNotesByUser(UserId, pageNo,pageSize);
+//		if(CollectionUtils.isEmpty(notes))
+//		{
+//			return ResponseEntity.noContent().build();
+//		}
 		return CommonUtil.createBuildResponse(notes, HttpStatus.OK);
 	}
 	

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,12 +74,50 @@ public class NotesController {
 	{
 		Integer UserId=1;
 		NotesResponse notes = notesService.getAllNotesByUser(UserId, pageNo,pageSize);
-//		if(CollectionUtils.isEmpty(notes))
-//		{
-//			return ResponseEntity.noContent().build();
-//		}
 		return CommonUtil.createBuildResponse(notes, HttpStatus.OK);
 	}
 	
+	@GetMapping("/delete/{id}")
+	public ResponseEntity<?> deleteNotes(@PathVariable Integer id) throws Exception
+	{
+		notesService.softDeletenotes(id);
+		return CommonUtil.createBuildResponse("Delete success", HttpStatus.OK);
+	}
+	
+	@GetMapping("/restore/{id}")
+	public ResponseEntity<?> restoreNotes(@PathVariable Integer id) throws Exception
+	{
+		notesService.restorenotes(id);
+		return CommonUtil.createBuildResponse("Notes restore success", HttpStatus.OK);
+	}
+	
+	@GetMapping("/recycle-bin")
+	public ResponseEntity<?> getUserRecycleBinNotes() throws Exception
+	{
+		Integer userId = 1;
+		List<NotesDto> notes = notesService.getUserRecycleBinNotes(userId);
+		
+		if(CollectionUtils.isEmpty(notes))
+		{
+			return CommonUtil.createBuildResponseMessage("Notes not available in Recycle Bin", HttpStatus.OK);
+		}
+		
+		return CommonUtil.createBuildResponse(notes, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> hardDeleteNotes(@PathVariable Integer id) throws Exception
+	{
+		notesService.hardDeletenotes(id);
+		return CommonUtil.createBuildResponse("Delete success", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> emptyRecycleBin() throws Exception
+	{
+		int userId = 1;
+		notesService.emptyRecycleBin(userId);
+		return CommonUtil.createBuildResponse("Delete success", HttpStatus.OK);
+	}
 	
 }

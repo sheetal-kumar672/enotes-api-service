@@ -1,5 +1,6 @@
 package org.springboot.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springboot.entity.Category;
@@ -33,6 +34,10 @@ public class NotesDto {
 	private Date updatedOn;
 	
 	private FileDto fileDetails;
+	
+	private Boolean isDeleted;
+	
+	private LocalDateTime deletedOn;
 	
     public Integer getId() {
 		return id;

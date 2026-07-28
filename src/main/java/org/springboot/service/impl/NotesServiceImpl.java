@@ -327,6 +327,8 @@ public class NotesServiceImpl implements NotesService{
 				.isDeleted(false)
 				.fileDetails(null)
 				.build();
+		
+		// TODO : Need to check Validation
 		Notes saveCopyNote = notesRepo.save(copyNote);
 		
 		if(!ObjectUtils.isEmpty(saveCopyNote))

@@ -36,6 +36,8 @@ public interface NotesService {
 	
 	public List<FavoriteNoteDto> getUserFavoriteNotes() throws Exception;
 
+	public Boolean copyNotes(Integer id) throws Exception;
+
 
 
 }

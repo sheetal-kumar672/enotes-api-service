@@ -2,8 +2,10 @@ package org.springboot.controller;
 
 import java.util.List;
 
+import org.springboot.dto.FavoriteNoteDto;
 import org.springboot.dto.NotesDto;
 import org.springboot.dto.NotesResponse;
+import org.springboot.entity.FavoriteNote;
 import org.springboot.entity.FileDetails;
 import org.springboot.service.NotesService;
 import org.springboot.util.CommonUtil;
@@ -118,6 +120,31 @@ public class NotesController {
 		int userId = 1;
 		notesService.emptyRecycleBin(userId);
 		return CommonUtil.createBuildResponse("Delete success", HttpStatus.OK);
+	}
+	
+	@GetMapping("/fav/{noteId}")
+	public ResponseEntity<?> favoriteNote(@PathVariable Integer noteId) throws Exception
+	{
+		notesService.favoriteNote(noteId);
+		return CommonUtil.createBuildResponse("Notes added Favorite", HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/un-fav/{favNoteId}")
+	public ResponseEntity<?> unFavoriteNote(@PathVariable Integer favNoteId) throws Exception
+	{
+		notesService.unFavoriteNote(favNoteId);
+		return CommonUtil.createBuildResponseMessage("Remove Favorite", HttpStatus.OK);
+	}
+	
+	@GetMapping("/fav-note")
+	public ResponseEntity<?> getUserFavoriteNote() throws Exception
+	{
+		List<FavoriteNoteDto> userFavoriteNotes = notesService.getUserFavoriteNotes();
+		if(CollectionUtils.isEmpty(userFavoriteNotes))
+		{
+			return ResponseEntity.noContent().build();
+		}
+		return CommonUtil.createBuildResponse(userFavoriteNotes, HttpStatus.OK);
 	}
 	
 }

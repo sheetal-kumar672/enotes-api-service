@@ -2,6 +2,7 @@ package org.springboot.service;
 
 import java.util.List;
 
+import org.springboot.dto.FavoriteNoteDto;
 import org.springboot.dto.NotesDto;
 import org.springboot.dto.NotesResponse;
 import org.springboot.entity.FileDetails;
@@ -28,6 +29,12 @@ public interface NotesService {
 	public void hardDeletenotes(Integer id) throws Exception;
 
 	public void emptyRecycleBin(int userId);
+	
+	public void favoriteNote(Integer noteId) throws Exception;
+	
+	public void unFavoriteNote(Integer noteId) throws Exception;
+	
+	public List<FavoriteNoteDto> getUserFavoriteNotes() throws Exception;
 
 
 

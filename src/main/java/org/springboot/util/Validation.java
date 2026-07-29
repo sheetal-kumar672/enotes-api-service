@@ -5,6 +5,10 @@ import java.util.Map;
 
 
 import org.springboot.dto.CategoryDto;
+import org.springboot.dto.TodoDto;
+import org.springboot.dto.TodoDto.StatusDto;
+import org.springboot.enums.TodoStatus;
+import org.springboot.exception.ResourceNotFoundException;
 import org.springboot.exception.ValidationException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -37,7 +41,7 @@ public class Validation {
 				}
 			}
 			
-			// Validation decription
+			// Validation description
 			
 			if (ObjectUtils.isEmpty(categoryDto.getDescription())) {
 				error.put("description", "description field is empty or null");
@@ -63,5 +67,26 @@ public class Validation {
 		}
 		
 	}
+	
+	public void todoValidation(TodoDto todo) throws Exception 
+	{
+		StatusDto reqstatus = todo.getStatus();
+		
+		Boolean statusFound = false;
+		
+		for(TodoStatus st : TodoStatus.values())
+		{
+			if(st.getId().equals(reqstatus.getId()))
+			{
+				statusFound = true;
+			}
+		}
+		if(!statusFound)
+		{
+			throw new ResourceNotFoundException("Invalid status");
+		}
+	}
+	
+	
 
 }

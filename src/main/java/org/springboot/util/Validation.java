@@ -10,9 +10,11 @@ import org.springboot.dto.TodoDto;
 import org.springboot.dto.TodoDto.StatusDto;
 import org.springboot.dto.UserDto;
 import org.springboot.enums.TodoStatus;
+import org.springboot.exception.ExistDataException;
 import org.springboot.exception.ResourceNotFoundException;
 import org.springboot.exception.ValidationException;
 import org.springboot.repository.RoleRepository;
+import org.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +28,9 @@ public class Validation {
 	
 	@Autowired
 	private RoleRepository roleRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 
 	public void categoryValidation(CategoryDto categoryDto)
 	{
@@ -115,6 +120,15 @@ public class Validation {
 				!userDto.getEmail().matches(Constants.EMAIL_REGEX))
 		{
 			throw new IllegalArgumentException("email is invaild");
+		}
+		else
+		{
+			// validate email exist
+			Boolean existEmail = userRepo.existsByEmail(userDto.getEmail());
+			if(existEmail)
+			{
+				throw new ExistDataException("Email already exist");
+			}
 		}
 		
 		if(!StringUtils.hasText(userDto.getMobNo()) || !userDto.getMobNo().matches(Constants.MOBNO_REGEX))

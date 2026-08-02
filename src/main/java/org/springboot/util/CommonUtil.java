@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class CommonUtil {
 	
 	public static ResponseEntity<?> createBuildResponse(Object data, HttpStatus status)
@@ -78,6 +80,15 @@ public class CommonUtil {
 			return "application/octet-stream";
 		}
 
+	}
+
+	public static String getUrl(HttpServletRequest request) {
+		
+	  String apiUrl	= request.getRequestURL().toString();
+	  
+	  apiUrl=apiUrl.replace(request.getServletPath(), "");
+		
+		return apiUrl;
 	}
 	
 	

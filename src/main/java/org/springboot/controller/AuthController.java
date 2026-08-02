@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -19,9 +21,10 @@ public class AuthController {
 	private UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) throws Exception
+	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto, HttpServletRequest request) throws Exception
 	{
-		Boolean register = userService.register(userDto);
+		String url = CommonUtil.getUrl(request);
+		Boolean register = userService.register(userDto,url);
 		if(register)
 		{
 			return CommonUtil.createBuildResponseMessage("Register success", HttpStatus.CREATED);

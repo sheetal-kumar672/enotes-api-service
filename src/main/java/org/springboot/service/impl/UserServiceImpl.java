@@ -3,8 +3,12 @@ package org.springboot.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.jspecify.annotations.Nullable;
 import org.modelmapper.ModelMapper;
+import org.springboot.config.security.CustomUserDetails;
 import org.springboot.dto.EmailRequest;
+import org.springboot.dto.LoginRequest;
+import org.springboot.dto.LoginResponse;
 import org.springboot.dto.UserDto;
 import org.springboot.entity.AccountStatus;
 import org.springboot.entity.Role;
@@ -14,6 +18,10 @@ import org.springboot.repository.UserRepository;
 import org.springboot.service.UserService;
 import org.springboot.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -34,6 +42,12 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private EmailService emailService;  
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public Boolean register(UserDto userDto,String url) throws Exception {
@@ -49,6 +63,8 @@ public class UserServiceImpl implements UserService{
 				.build();
 		
 		user.setStatus(status);
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		User saveUser = userRepo.save(user);
 		if(!ObjectUtils.isEmpty(saveUser))
@@ -87,6 +103,29 @@ public class UserServiceImpl implements UserService{
 		List<Role> roles = roleRepo.findAllById(reqRoleId);
 		user.setRoles(roles);
 		
+	}
+
+	@Override
+	public LoginResponse login(LoginRequest loginRequest) {
+		
+		Authentication authenticate = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+		
+		if(authenticate.isAuthenticated())
+		{
+
+		CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
+			
+			String token = "tydudgbdeiuwdbdwobigdodbdu";
+			
+			LoginResponse loginResponse = LoginResponse.builder()
+					.user(mapper.map(customUserDetails.getUser(), UserDto.class))
+					.token(token)
+					
+					.build();
+			return loginResponse;
+		}
+		return null;
 	}
 
 }

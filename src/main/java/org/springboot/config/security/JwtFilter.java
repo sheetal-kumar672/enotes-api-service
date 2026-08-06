@@ -2,8 +2,11 @@ package org.springboot.config.security;
 
 import java.io.IOException;
 
+import org.springboot.handler.GenricResponse;
 import org.springboot.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.error.Error;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +14,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -30,7 +36,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+		try {
+			
 		String authHeader = request.getHeader("Authorization");
 		
 		String token = null;
@@ -55,7 +62,25 @@ public class JwtFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			} 
 		}
+		}
+		 catch (Exception e) {
+			generateResponseError(response,e);	
+			 
+				return;
+			}
 	filterChain.doFilter(request, response);	
+	}
+
+	private void generateResponseError(HttpServletResponse response, Exception e) throws IOException {
+		response.setContentType("application/json");
+		response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		Object error = GenricResponse.builder()
+		.status("failed")
+		.message(e.getMessage())
+		.responseStatus(HttpStatus.UNAUTHORIZED)
+		.build().create().getBody();
+		response.getWriter().write(new ObjectMapper().writeValueAsString(error));
+		
 	}
 	
 

@@ -1,6 +1,7 @@
 package org.springboot.exception;
 
 import java.io.FileNotFoundException;
+import java.nio.file.AccessDeniedException;
 
 import org.slf4j.Logger;
 import org.springboot.util.CommonUtil;
@@ -21,6 +22,12 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleException(Exception e)
 	{
 		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<?> handleAccessDeniedException(Exception e)
+	{
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.FORBIDDEN);
 	}
 	
 	@ExceptionHandler(SuccessException.class)
@@ -57,25 +64,25 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ExistDataException.class)
 	public ResponseEntity<?> handleExistDataException(ExistDataException e)
 	{
-		return CommonUtil.createErrorResponse(e.getMessage(),HttpStatus.CONFLICT);
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.CONFLICT);
 	}
 	
 	@ExceptionHandler(FileNotFoundException.class)
 	public ResponseEntity<?> handleFileNotFoundException(FileNotFoundException e)
 	{
-		return CommonUtil.createErrorResponse(e.getMessage(),HttpStatus.NOT_FOUND);
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e)
 	{
-		return CommonUtil.createErrorResponse(e.getMessage(),HttpStatus.BAD_REQUEST);
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException e)
 	{
-		return CommonUtil.createErrorResponse(e.getMessage(),HttpStatus.BAD_REQUEST);
+		return CommonUtil.createErrorResponseMessage(e.getMessage(),HttpStatus.BAD_REQUEST);
 	}
 	
 	

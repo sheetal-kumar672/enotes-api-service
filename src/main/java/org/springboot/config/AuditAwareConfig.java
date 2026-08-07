@@ -2,6 +2,8 @@ package org.springboot.config;
 
 import java.util.Optional;
 
+import org.springboot.entity.User;
+import org.springboot.util.CommonUtil;
 import org.springframework.data.domain.AuditorAware;
 
 public class AuditAwareConfig implements AuditorAware<Integer> {
@@ -9,7 +11,8 @@ public class AuditAwareConfig implements AuditorAware<Integer> {
 	@Override
 	public Optional<Integer> getCurrentAuditor() {
 		
-		return Optional.of(1);
+		User loggedInUser = CommonUtil.getLoggedInUser();
+		return Optional.of(loggedInUser.getId());
 	}
 
 }

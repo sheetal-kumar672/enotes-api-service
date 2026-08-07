@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springboot.dto.CategoryDto;
 import org.springboot.dto.TodoDto;
 import org.springboot.dto.TodoDto.StatusDto;
-import org.springboot.dto.UserDto;
+import org.springboot.dto.UserRequest;
 import org.springboot.enums.TodoStatus;
 import org.springboot.exception.ExistDataException;
 import org.springboot.exception.ResourceNotFoundException;
@@ -103,7 +103,7 @@ public class Validation {
 		}
 	}
 	
-	public void userValidation(UserDto userDto)
+	public void userValidation(UserRequest userDto)
 	{
 		
 		if(!StringUtils.hasText(userDto.getFirstName()))

@@ -2,7 +2,7 @@ package org.springboot.controller;
 
 import org.springboot.dto.LoginRequest;
 import org.springboot.dto.LoginResponse;
-import org.springboot.dto.UserDto;
+import org.springboot.dto.UserRequest;
 import org.springboot.service.UserService;
 import org.springboot.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AuthController {
 	private UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto, HttpServletRequest request) throws Exception
+	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception
 	{
 		String url = CommonUtil.getUrl(request);
 		Boolean register = userService.register(userDto,url);

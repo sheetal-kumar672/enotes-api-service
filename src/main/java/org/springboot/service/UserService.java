@@ -2,11 +2,11 @@ package org.springboot.service;
 
 import org.springboot.dto.LoginRequest;
 import org.springboot.dto.LoginResponse;
-import org.springboot.dto.UserDto;
+import org.springboot.dto.UserRequest;
 
 public interface UserService {
 	
-	public Boolean register(UserDto userDto, String url) throws Exception;
+	public Boolean register(UserRequest userDto, String url) throws Exception;
 
 	public LoginResponse login(LoginRequest loginRequest);
 

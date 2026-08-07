@@ -9,7 +9,7 @@ import org.springboot.config.security.CustomUserDetails;
 import org.springboot.dto.EmailRequest;
 import org.springboot.dto.LoginRequest;
 import org.springboot.dto.LoginResponse;
-import org.springboot.dto.UserDto;
+import org.springboot.dto.UserRequest;
 import org.springboot.entity.AccountStatus;
 import org.springboot.entity.Role;
 import org.springboot.entity.User;
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 	private JwtService jwtService;
 
 	@Override
-	public Boolean register(UserDto userDto,String url) throws Exception {
+	public Boolean register(UserRequest userDto,String url) throws Exception {
 		
 		validation.userValidation(userDto);
 		User user = mapper.map(userDto, User.class);
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService{
 		emailService.sendEmail(emailRequest);
 	}
 
-	private void setRole(UserDto userDto, User user) {
+	private void setRole(UserRequest userDto, User user) {
 		List<Integer> reqRoleId = userDto.getRoles().stream().map(r -> r.getId()).toList();
 		List<Role> roles = roleRepo.findAllById(reqRoleId);
 		user.setRoles(roles);
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService{
 			String token = jwtService.generateToken(customUserDetails.getUser());
 			
 			LoginResponse loginResponse = LoginResponse.builder()
-					.user(mapper.map(customUserDetails.getUser(), UserDto.class))
+					.user(mapper.map(customUserDetails.getUser(), UserRequest.class))
 					.token(token)
 					.build();
 			return loginResponse;

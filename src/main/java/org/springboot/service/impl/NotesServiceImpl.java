@@ -28,6 +28,7 @@ import org.springboot.repository.FavoriteNoteRepository;
 import org.springboot.repository.FileRepository;
 import org.springboot.repository.NotesRepository;
 import org.springboot.service.NotesService;
+import org.springboot.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -210,7 +211,9 @@ public class NotesServiceImpl implements NotesService{
 	}
 
 	@Override
-	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize) {
+	public NotesResponse getAllNotesByUser( Integer pageNo, Integer pageSize) {
+		
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		
 		Pageable pageable= PageRequest.of(pageNo, pageSize);
 		
@@ -253,7 +256,8 @@ public class NotesServiceImpl implements NotesService{
 	}
 
 	@Override
-	public List<NotesDto> getUserRecycleBinNotes(Integer userId) {
+	public List<NotesDto> getUserRecycleBinNotes() {
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(userId);
 		List<NotesDto> noteDtoList = recycleNotes.stream().map(note->mapper.map(note, NotesDto.class)).toList();
 		return noteDtoList;
@@ -274,7 +278,9 @@ public class NotesServiceImpl implements NotesService{
 	}
 
 	@Override
-	public void emptyRecycleBin(int userId) {
+	public void emptyRecycleBin() {
+		
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		
 		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(userId);
 		if(!CollectionUtils.isEmpty(recycleNotes))
@@ -285,7 +291,7 @@ public class NotesServiceImpl implements NotesService{
 
 	@Override
 	public void favoriteNote(Integer noteId) throws Exception {
-		int userId = 1;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		Notes notes = notesRepo.findById(noteId).orElseThrow(()-> new ResourceNotFoundException("Notes Not found & Id invalid "));
 		
 		FavoriteNote favoriteNote = FavoriteNote.builder()

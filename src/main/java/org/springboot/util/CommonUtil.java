@@ -2,10 +2,14 @@ package org.springboot.util;
 
 import org.apache.commons.io.FilenameUtils;
 import org.jspecify.annotations.Nullable;
+import org.springboot.config.security.CustomUserDetails;
+import org.springboot.dto.UserResponse;
+import org.springboot.entity.User;
 import org.springboot.handler.GenricResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -91,6 +95,17 @@ public class CommonUtil {
 		return apiUrl;
 	}
 	
-	
+	public static User getLoggedInUser()
+	{
+		try {
+			CustomUserDetails logUser = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			return logUser.getUser();
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
 
 }

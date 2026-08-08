@@ -1,0 +1,45 @@
+package org.springboot.service;
+
+import java.util.List;
+
+import org.springboot.dto.FavoriteNoteDto;
+import org.springboot.dto.NotesDto;
+import org.springboot.dto.NotesResponse;
+import org.springboot.entity.FileDetails;
+import org.springframework.web.multipart.MultipartFile;
+
+public interface NotesService {
+	
+	public Boolean saveNotes(String notes, MultipartFile file) throws Exception;
+	
+	public List<NotesDto> getAllNotes();
+
+	public byte[] downloadFile(FileDetails fileDetails) throws Exception;
+
+	public FileDetails getFileDetails(Integer id) throws Exception;
+
+	public NotesResponse getAllNotesByUser( Integer pageNo, Integer pageSize);
+	
+	public NotesResponse getAllNotesByUserSearch( Integer pageNo, Integer pageSize,String keyword);
+
+	public void softDeletenotes(Integer id) throws Exception;
+
+	public void restorenotes(Integer id) throws Exception;
+
+	public List<NotesDto> getUserRecycleBinNotes();
+
+	public void hardDeletenotes(Integer id) throws Exception;
+
+	public void emptyRecycleBin();
+	
+	public void favoriteNote(Integer noteId) throws Exception;
+	
+	public void unFavoriteNote(Integer noteId) throws Exception;
+	
+	public List<FavoriteNoteDto> getUserFavoriteNotes() throws Exception;
+
+	public Boolean copyNotes(Integer id) throws Exception;
+
+
+
+}

@@ -3,6 +3,7 @@ package org.springboot.controller;
 import org.springboot.dto.LoginRequest;
 import org.springboot.dto.LoginResponse;
 import org.springboot.dto.UserRequest;
+import org.springboot.endpoint.AuthEndpoint;
 import org.springboot.service.AuthService;
 import org.springboot.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +16,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController implements AuthEndpoint {
 	
 	@Autowired
 	private AuthService authService;
 	
-	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception
+	@Override
+	public ResponseEntity<?> registerUser(UserRequest userDto, HttpServletRequest request) throws Exception
 	{
+		log.info("AuthController : registerUser() : Execution Start");
+
 		String url = CommonUtil.getUrl(request);
 		Boolean register = authService.register(userDto,url);
-		if(register)
+		if(!register)
 		{
-			return CommonUtil.createBuildResponseMessage("Register success", HttpStatus.CREATED);
+			log.info("Error : {}","Register failed");
+
+			return CommonUtil.createErrorResponseMessage("Register failed", HttpStatus.INTERNAL_SERVER_ERROR);
+
 		}
-		return CommonUtil.createErrorResponseMessage("Register failed", HttpStatus.INTERNAL_SERVER_ERROR);
+		log.info("AuthController : registerUser() : Execution End");
+
+		return CommonUtil.createBuildResponseMessage("Register success", HttpStatus.CREATED);
 
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception
+	@Override
+	public ResponseEntity<?> login(LoginRequest loginRequest) throws Exception
 	{
 		LoginResponse loginResponse = authService.login(loginRequest);
 		if(ObjectUtils.isEmpty(loginResponse))

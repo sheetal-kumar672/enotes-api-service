@@ -27,6 +27,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService{
 	
@@ -56,7 +59,8 @@ public class AuthServiceImpl implements AuthService{
 
 	@Override
 	public Boolean register(UserRequest userDto,String url) throws Exception {
-		
+		log.info("AuthServiceImpl : register() : Execution Start");
+
 		validation.userValidation(userDto);
 		User user = mapper.map(userDto, User.class);
 		
@@ -72,13 +76,19 @@ public class AuthServiceImpl implements AuthService{
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		User saveUser = userRepo.save(user);
-		if(!ObjectUtils.isEmpty(saveUser))
+		if(ObjectUtils.isEmpty(saveUser))
 		{
-			// send email
-			emailSendForRegister(saveUser,url);
-			return true;
+		    log.info("Error : {}","user not saved");
+
+			return false;
 		}
-		return false;
+		log.info("Message : {}","User Register success");
+		// send email
+		    emailSendForRegister(saveUser,url);
+		    log.info("Message : {}","email send success");
+		    log.info("AuthServiceImpl : register() : Execution End");
+
+		return true;
 	}
 
 	private void emailSendForRegister(User saveUser, String url) throws Exception {

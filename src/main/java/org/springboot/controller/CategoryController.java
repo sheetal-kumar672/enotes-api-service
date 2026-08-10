@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springboot.dto.CategoryDto;
 import org.springboot.dto.CategoryResponse;
+import org.springboot.endpoint.CategoryEndpoint;
 import org.springboot.entity.Category;
 import org.springboot.service.CategoryService;
 import org.springboot.util.CommonUtil;
@@ -22,15 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/category")
-public class categorycontroller {
+public class CategoryController implements CategoryEndpoint {
 	
 	@Autowired
 	private CategoryService categoryService;
 	
-	@PostMapping("/save")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto)
+	@Override
+	public ResponseEntity<?> saveCategory(CategoryDto categoryDto)
 	{
 		Boolean saveCategory = categoryService.saveCategory(categoryDto);
 		
@@ -48,8 +47,7 @@ public class categorycontroller {
 		
 	}
 	
-	@GetMapping("/")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> getAllCategory()
 	{
 		
@@ -68,8 +66,7 @@ public class categorycontroller {
 		
 	}
 	
-	@GetMapping("/active")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@Override
 	public ResponseEntity<?> getActiveCategory()
 	{
 		List<CategoryResponse> allCategory = categoryService.getActiveCategory();
@@ -87,9 +84,8 @@ public class categorycontroller {
 		
 	}
 	
-	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id ) throws Exception
+	@Override
+	public ResponseEntity<?> getCategoryDetailsById(Integer id ) throws Exception
 	{
 		CategoryDto categoryDto = categoryService.getCategoryById(id);
 		if(ObjectUtils.isEmpty(categoryDto))
@@ -101,9 +97,8 @@ public class categorycontroller {
 //		return new ResponseEntity<>(categoryDto,HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> deletecategoryById(@PathVariable Integer id )
+	@Override
+	public ResponseEntity<?> deletecategoryById(Integer id )
 	{
 		Boolean deleted= categoryService.deleteCategory(id);
 		if(deleted)

@@ -29,13 +29,11 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: sheetalshakshi143@gmail.com 
-    password: clxi kdzt cnux pqmx 		
+    password: jmjb rrqi cjqp oxhc 		
     properties:
-      mail:
-        smpt:
-          auth: true
-        starttls:
-          enable: true																					
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true																			
 file:
   upload:
     path: notes/

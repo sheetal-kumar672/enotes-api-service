@@ -3,6 +3,7 @@ package org.springboot.controller;
 import java.util.List;
 
 import org.springboot.dto.TodoDto;
+import org.springboot.endpoint.TodoEndpoint;
 import org.springboot.service.TodoService;
 import org.springboot.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/todo")
-public class TodoController {
+public class TodoController implements TodoEndpoint {
 	
 	@Autowired
 	private TodoService todoService;
 	
-	@PostMapping("/")
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todo) throws Exception
+	@Override
+	public ResponseEntity<?> saveTodo(TodoDto todo) throws Exception
 	{
 		Boolean saveTodo = todoService.saveTodo(todo);
 		if(saveTodo)
@@ -39,17 +38,15 @@ public class TodoController {
 	}
 	}
 
-	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> getTodoById(@PathVariable Integer id) throws Exception
+	@Override
+	public ResponseEntity<?> getTodoById(Integer id) throws Exception
 	{
 		TodoDto todo = todoService.getTodoById(id);
 
 		return CommonUtil.createBuildResponse(todo, HttpStatus.OK);
 	}
 	
-	@GetMapping("/list")
-	@PreAuthorize("hasRole('USER')")
+	@Override
 	public ResponseEntity<?> getAllTodoByUser() 
 	{
 		List<TodoDto> todoList = todoService.getTodoByUser();

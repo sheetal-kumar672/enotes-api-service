@@ -1,7 +1,0 @@
-2026-10-55 16:55:20.181  INFO [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-55 16:55:20.186  INFO [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-10-55 16:55:20.192  INFO [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
-2026-10-55 16:55:20.540  INFO [http-nio-8080-exec-2] o.s.controller.AuthController - AuthController : registerUser() : Execution Start
-2026-10-55 16:55:20.547  INFO [http-nio-8080-exec-2] o.s.service.impl.AuthServiceImpl - AuthServiceImpl : register() : Execution Start
-2026-10-55 16:55:20.883 ERROR [http-nio-8080-exec-2] o.s.exception.GlobalExceptionHandler - GlobalExceptionHandler : handleExistDataException() : Email already exist
-2026-10-55 16:55:20.947  WARN [http-nio-8080-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springboot.exception.ExistDataException: Email already exist]

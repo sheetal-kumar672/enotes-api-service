@@ -1,6 +1,0 @@
-2026-10-24 23:24:00.429  INFO [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-10-24 23:24:00.470  INFO [restartedMain] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-10-24 23:24:00.486  INFO [restartedMain] o.s.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 11.239 seconds (process running for 12.828)
-2026-10-24 23:24:56.195  INFO [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-24 23:24:56.195  INFO [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-10-24 23:24:56.202  INFO [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms

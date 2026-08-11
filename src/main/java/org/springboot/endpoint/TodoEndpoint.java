@@ -1,6 +1,8 @@
 package org.springboot.endpoint;
 
 import org.springboot.dto.TodoDto;
+import static org.springboot.util.Constants.ROLE_USER;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface TodoEndpoint {
 
 	@PostMapping("/")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todo) throws Exception;
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getTodoById(@PathVariable Integer id) throws Exception;
 	
 	@GetMapping("/list")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getAllTodoByUser() ;
 }

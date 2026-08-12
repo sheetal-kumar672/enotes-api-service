@@ -3,7 +3,7 @@ package org.springboot.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import org.springboot.entity.Category;
+import org.springboot.dto.NotesDto.CategoryDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class NotesDto {
 	
 	private String description;
 	
-	private Category category;
+	private CategoryDto category;
 	
     private Integer createdBy;
 	
@@ -39,77 +39,6 @@ public class NotesDto {
 	
 	private LocalDateTime deletedOn;
 	
-    public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Integer getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(Integer createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Integer getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public Date getUpdatedOn() {
-		return updatedOn;
-	}
-
-	public void setUpdatedOn(Date updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-	
-	public FileDto getFileDetails() {
-		return fileDetails;
-	}
-
-	public void setFileDetails(FileDto fileDetails) {
-		this.fileDetails = fileDetails;
-	}
 
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -124,29 +53,6 @@ public class NotesDto {
 		
 		private String displayFileName;
 
-		public Integer getId() {
-			return id;
-		}
-
-		public void setId(Integer id) {
-			this.id = id;
-		}
-
-		public String getOriginalFileName() {
-			return originalFileName;
-		}
-
-		public void setOriginalFileName(String originalFileName) {
-			this.originalFileName = originalFileName;
-		}
-
-		public String getDisplayFileName() {
-			return displayFileName;
-		}
-
-		public void setDisplayFileName(String displayFileName) {
-			this.displayFileName = displayFileName;
-		}
 
 	}
 	
@@ -158,18 +64,7 @@ public class NotesDto {
 	public static class CategoryDto {
 		
 	    private Integer id;
-	    public Integer getId() {
-			return id;
-		}
-		public void setId(Integer id) {
-			this.id = id;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
+
 		private String name;
 
 }

@@ -33,7 +33,14 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
-      mail.smtp.starttls.required: true																			
+      mail.smtp.starttls.required: true	
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha	
+    path: /enotes-doc	
+  api-docs:
+    path: /enotes-api-doc																		
 file:
   upload:
     path: notes/
@@ -64,11 +71,18 @@ spring:
     username: sheetalshakshi143@gmail.com 
     password: clxi kdzt cnux pqmx     
     properties:
-      mail:
-        smpt:
-          auth: true
-        starttls:
-          enable: true                                          
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true 
+server:
+  port: 8081	
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path: /enotes-doc 
+  api-docs:
+    path: /enotes-api-doc 			                                       
 file:
   upload:
     path: notes/
@@ -99,11 +113,16 @@ spring:
     username: sheetalshakshi143@gmail.com 
     password: clxi kdzt cnux pqmx     
     properties:
-      mail:
-        smpt:
-          auth: true
-        starttls:
-          enable: true                                          
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true                                             
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path: /enotes-doc 
+  api-docs:
+    path: /enotes-api-doc 
 file:
   upload:
     path: notes/
@@ -134,11 +153,18 @@ spring:
     username: sheetalshakshi143@gmail.com 
     password: clxi kdzt cnux pqmx     
     properties:
-      mail:
-        smpt:
-          auth: true
-        starttls:
-          enable: true                                          
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+server:
+  port: 8082			
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path: /enotes-doc 
+  api-docs:
+    path: /enotes-api-doc 			                                          
 file:
   upload:
     path: notes/	

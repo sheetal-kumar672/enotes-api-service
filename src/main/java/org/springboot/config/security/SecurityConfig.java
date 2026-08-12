@@ -55,7 +55,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
 		http.csrf(csrf->csrf.disable())
-		.authorizeHttpRequests(req->req.requestMatchers("/api/home/**","/api/auth/**").permitAll()
+		.authorizeHttpRequests(req->req.requestMatchers("/api/home/**","/api/auth/**","/swagger-ui/**","/v3/api-docs/**","/enotes-doc/**","/enotes-api-doc/**").permitAll()
 		.anyRequest().authenticated())
 		.httpBasic(Customizer.withDefaults())
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

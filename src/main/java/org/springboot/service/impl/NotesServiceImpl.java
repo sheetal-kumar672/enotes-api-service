@@ -16,6 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.springboot.dto.FavoriteNoteDto;
 import org.springboot.dto.NotesDto;
+import org.springboot.dto.NotesDto.CategoryDto;
 import org.springboot.dto.NotesDto.FileDto;
 import org.springboot.dto.NotesResponse;
 import org.springboot.entity.Category;
@@ -181,9 +182,9 @@ public class NotesServiceImpl implements NotesService{
 	
 	}
 
-	private void checkCategoryExist(Category category) throws Exception {
+	private void checkCategoryExist(CategoryDto categoryDto) throws Exception {
 		
-		categoryRepo.findById(category.getId()).orElseThrow(()->new ResourceNotFoundException("category id invalid"));
+		categoryRepo.findById(categoryDto.getId()).orElseThrow(()->new ResourceNotFoundException("category id invalid"));
 		
 	}
 

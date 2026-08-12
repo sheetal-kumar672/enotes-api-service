@@ -9,70 +9,111 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import static org.springboot.util.Constants.ROLE_ADMIN;
 import static org.springboot.util.Constants.ROLE_ADMIN_USER;
 import static org.springboot.util.Constants.ROLE_USER;
+
+import org.springboot.dto.NotesDto;
+import org.springboot.dto.NotesRequest;
+
 import static org.springboot.util.Constants.DEFAULT_PAGE_NO;
 import static org.springboot.util.Constants.DEFAULT_PAGE_SIZE;
 
+@Tag(name = "Notes",description  = "All the Notes Operation APIs")
 @RequestMapping("/api/notes")
 public interface NotesEndpoint {
 
-	@PostMapping("/")
-	@PreAuthorize(ROLE_USER)
-	public ResponseEntity<?> saveNotes(@RequestParam String notes, @RequestParam(required = false) MultipartFile file) throws Exception;
+	@Operation(summary = "User Save Notes",tags = {"Notes","User"},description = "User Save Notes")
+	@PostMapping(value = "/", consumes = "multipart/form-data")
+	@PreAuthorize(ROLE_ADMIN_USER)
+	public ResponseEntity<?> saveNotes(@RequestParam 
+			@Parameter(description = "Json String Notes",required = true,
+			content = @Content(schema = @Schema(implementation = NotesRequest.class)))
+			String notes, @RequestParam(required = false) MultipartFile file) throws Exception;
 	
+	
+	@Operation(summary = "Download Upload File",tags = {"Notes","User"},description = "Download file")
 	@GetMapping("/download/{id}")
 	@PreAuthorize(ROLE_ADMIN_USER)
 	public ResponseEntity<?> downloadFile(@PathVariable Integer id) throws Exception;
 	
+	
+	@Operation(summary = "Get All Notes",tags = {"Notes"},description = "Get All Notes Admin")
 	@GetMapping("/")
 	@PreAuthorize(ROLE_ADMIN)
 	public ResponseEntity<?> getAllNotes();
 	
 	
+	@Operation(summary = "Delete Notes",tags = {"Notes","User"},description = "Delete Notes by User")
 	@GetMapping("/delete/{id}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> deleteNotes(@PathVariable Integer id) throws Exception;
 	
+	
+	@Operation(summary = "Restore Delete Notes",tags = {"Notes","User"},description = "Restore Delete Notes from Recycle Bin")
 	@GetMapping("/restore/{id}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> restoreNotes(@PathVariable Integer id) throws Exception;
 	
+	
+	@Operation(summary = "Get Notes From Recycle Bin",tags = {"Notes","User"},description = "Get Notes From Recycle Bin")
 	@GetMapping("/recycle-bin")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getUserRecycleBinNotes() throws Exception;
 	
+	
+	@Operation(summary = "Hard Delete Notes",tags = {"Notes","User"},description = "Hard Delete Notes")
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> hardDeleteNotes(@PathVariable Integer id) throws Exception;
 	
+	
+	@Operation(summary = "Empty User Recycle Bin",tags = {"Notes","User"},description = "Empty User Recycle Bin")
 	@DeleteMapping("/delete")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> emptyUserRecycleBin() throws Exception;
 	
+	
+	@Operation(summary = "Favorite Notes",tags = {"Notes","User"},description = "User Favorite Notes")
 	@GetMapping("/fav/{noteId}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> favoriteNote(@PathVariable Integer noteId) throws Exception;
 	
+	
+	@Operation(summary = "UnFavorite Notes",tags = {"Notes","User"},description = "User UnFavorite Notes")
 	@DeleteMapping("/un-fav/{favNoteId}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> unFavoriteNote(@PathVariable Integer favNoteId) throws Exception;
 	
+	
+	@Operation(summary = "Get User Favorite Notes",tags = {"Notes","User"},description = "User Favorite Notes")
 	@GetMapping("/fav-note")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getUserFavoriteNote() throws Exception;
 	
+	
+	@Operation(summary = "Copy Notes",tags = {"Notes","User"},description = "Copy Notes")
 	@GetMapping("/copy/{id}")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> copyNotes(@PathVariable Integer id) throws Exception;
 	
+	
+	@Operation(summary = "Search Notes",tags = {"Notes","User"},description = "User Search Notes")
 	@PostMapping("/search")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> searchNotes(@RequestParam(name = "key",defaultValue = "") String key,
 			@RequestParam(name = "pageNo",defaultValue = DEFAULT_PAGE_NO) Integer pageNo,
 			@RequestParam(name = "pageSize",defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize);
 	
+	
+	@Operation(summary = "Get All notes For User",tags = {"Notes","User"},description = "Get All notes For User")
 	@GetMapping("/user-notes")
 	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getAllNotesByUser(

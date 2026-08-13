@@ -1,7 +1,6 @@
 package org.springboot.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springboot.entity.FavoriteNote;
 import org.springframework.data.jpa.repository.JpaRepository;

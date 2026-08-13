@@ -7,9 +7,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
@@ -19,7 +17,6 @@ import org.springboot.dto.NotesDto;
 import org.springboot.dto.NotesDto.CategoryDto;
 import org.springboot.dto.NotesDto.FileDto;
 import org.springboot.dto.NotesResponse;
-import org.springboot.entity.Category;
 import org.springboot.entity.FavoriteNote;
 import org.springboot.entity.FileDetails;
 import org.springboot.entity.Notes;

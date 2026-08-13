@@ -1,8 +1,8 @@
 package org.springboot.endpoint;
 
-import org.springboot.dto.TodoDto;
 import static org.springboot.util.Constants.ROLE_USER;
 
+import org.springboot.dto.TodoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

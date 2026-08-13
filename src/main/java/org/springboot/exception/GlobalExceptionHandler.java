@@ -3,7 +3,6 @@ package org.springboot.exception;
 import java.io.FileNotFoundException;
 import java.nio.file.AccessDeniedException;
 
-import org.slf4j.Logger;
 import org.springboot.util.CommonUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

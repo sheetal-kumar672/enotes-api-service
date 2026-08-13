@@ -1,7 +1,6 @@
 package org.springboot.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

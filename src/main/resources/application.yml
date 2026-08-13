@@ -40,7 +40,12 @@ springdoc:
     tagsSorter: alpha	
     path: /enotes-doc	
   api-docs:
-    path: /enotes-api-doc																		
+    path: /enotes-api-doc
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 file:
   upload:
     path: notes/
@@ -82,7 +87,7 @@ springdoc:
     tagsSorter: alpha 
     path: /enotes-doc 
   api-docs:
-    path: /enotes-api-doc 			                                       
+    path: /enotes-api-doc		                                       
 file:
   upload:
     path: notes/

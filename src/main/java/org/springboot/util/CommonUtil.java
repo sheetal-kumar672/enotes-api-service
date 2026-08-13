@@ -1,13 +1,10 @@
 package org.springboot.util;
 
 import org.apache.commons.io.FilenameUtils;
-import org.jspecify.annotations.Nullable;
 import org.springboot.config.security.CustomUserDetails;
-import org.springboot.dto.UserResponse;
 import org.springboot.entity.User;
 import org.springboot.handler.GenricResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 

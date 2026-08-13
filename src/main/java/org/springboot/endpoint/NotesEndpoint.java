@@ -1,5 +1,12 @@
 package org.springboot.endpoint;
 
+import static org.springboot.util.Constants.DEFAULT_PAGE_NO;
+import static org.springboot.util.Constants.DEFAULT_PAGE_SIZE;
+import static org.springboot.util.Constants.ROLE_ADMIN;
+import static org.springboot.util.Constants.ROLE_ADMIN_USER;
+import static org.springboot.util.Constants.ROLE_USER;
+
+import org.springboot.dto.NotesRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,16 +22,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import static org.springboot.util.Constants.ROLE_ADMIN;
-import static org.springboot.util.Constants.ROLE_ADMIN_USER;
-import static org.springboot.util.Constants.ROLE_USER;
-
-import org.springboot.dto.NotesDto;
-import org.springboot.dto.NotesRequest;
-
-import static org.springboot.util.Constants.DEFAULT_PAGE_NO;
-import static org.springboot.util.Constants.DEFAULT_PAGE_SIZE;
 
 @Tag(name = "Notes",description  = "All the Notes Operation APIs")
 @RequestMapping("/api/notes")

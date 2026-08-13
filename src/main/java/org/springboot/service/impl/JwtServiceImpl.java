@@ -5,7 +5,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Base64.Decoder;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -22,7 +21,9 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService{
 	
@@ -36,7 +37,7 @@ public class JwtServiceImpl implements JwtService{
 			secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error while generating JWT secret key",e);
 		}
 		
 	}

@@ -1,7 +1,9 @@
 package org.springboot.endpoint;
 
+import static org.springboot.util.Constants.ROLE_ADMIN;
+import static org.springboot.util.Constants.ROLE_ADMIN_USER;
+
 import org.springboot.dto.CategoryDto;
-import org.springboot.util.Constants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import static org.springboot.util.Constants.ROLE_ADMIN;
-import static org.springboot.util.Constants.ROLE_ADMIN_USER;
 
 @Tag(name = "Category",description  = "All the Category operation APIs")
 @RequestMapping("/api/category")

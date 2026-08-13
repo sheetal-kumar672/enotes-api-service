@@ -1,7 +1,5 @@
 package org.springboot.dto;
 
-import org.springboot.entity.Notes;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -3,8 +3,6 @@ package org.springboot.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import org.springboot.dto.NotesDto.CategoryDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

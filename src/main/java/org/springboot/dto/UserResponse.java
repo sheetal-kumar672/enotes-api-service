@@ -2,9 +2,6 @@ package org.springboot.dto;
 
 import java.util.List;
 
-import org.springboot.dto.TodoDto.StatusDto;
-import org.springboot.dto.UserRequest.RoleDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

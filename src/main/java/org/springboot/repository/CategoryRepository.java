@@ -3,7 +3,6 @@ package org.springboot.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springboot.dto.CategoryResponse;
 import org.springboot.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 

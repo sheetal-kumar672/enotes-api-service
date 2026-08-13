@@ -3,7 +3,6 @@ package org.springboot.service.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.jspecify.annotations.Nullable;
 import org.modelmapper.ModelMapper;
 import org.springboot.config.security.CustomUserDetails;
 import org.springboot.dto.EmailRequest;
@@ -16,8 +15,8 @@ import org.springboot.entity.Role;
 import org.springboot.entity.User;
 import org.springboot.repository.RoleRepository;
 import org.springboot.repository.UserRepository;
-import org.springboot.service.JwtService;
 import org.springboot.service.AuthService;
+import org.springboot.service.JwtService;
 import org.springboot.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

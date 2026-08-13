@@ -2,10 +2,8 @@ package org.springboot.service;
 
 import java.util.List;
 
-
 import org.springboot.dto.CategoryDto;
 import org.springboot.dto.CategoryResponse;
-import org.springboot.entity.Category;
 
 public interface CategoryService {
 

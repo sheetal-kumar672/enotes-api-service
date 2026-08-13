@@ -2,11 +2,6 @@ package org.springboot.dto;
 
 import java.util.List;
 
-import org.springboot.entity.Role;
-import org.springboot.entity.User;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

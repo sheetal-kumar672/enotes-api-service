@@ -18,9 +18,11 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+        format_sql: true 
     hibernate:
-      ddl-auto: none	
+      ddl-auto: none
   servlet:
     multipart:
       max-file-size: 100MB
@@ -63,7 +65,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect:
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: none  
   servlet:
@@ -105,7 +107,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect:
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: none  
   servlet:
@@ -145,7 +147,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect:
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: none  
   servlet:
